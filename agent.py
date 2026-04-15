@@ -37,21 +37,21 @@ def extract_order_id(text):
 def agent_response(user_input):
     order_id = extract_order_id(user_input)
 
-    # 🔢 CASE: hanya angka
+    # CASE: hanya angka
     if user_input.strip().isdigit():
         return "Mohon sertakan konteks, misalnya: 'cek pesanan 123'"
 
-    # 🔎 cek order
+    # cek order
     if "status" in user_input or "pesanan" in user_input:
         if order_id:
             return f"Saya akan mengecek pesanan Anda...\n\n{cek_order(order_id)}"
         else:
             return "Mohon berikan nomor order Anda."
 
-    # 🧾 komplain
+    # komplain
     elif "komplain" in user_input or "masalah" in user_input:
         return f"Saya akan membuat tiket...\n\n{create_ticket(user_input)}"
 
-    # 🤖 fallback ke AI
+    # fallback ke AI
     else:
         return call_llm(user_input)
